@@ -1,0 +1,17 @@
+{
+  "name": "@marwantech/ai-prompt-chain",
+  "version": "0.1.0",
+  "description": "Composable prompt chain builder for LLM workflows",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": ["ai", "llm", "prompt", "chain", "pipeline", "openai", "anthropic"],
+  "author": "Marwan Saleh",
+  "license": "MIT",
+  "peerDependencies": {
+    "openai": ">=4.0.0"
+  }
+}
