@@ -174,6 +174,22 @@ export const Parsers = {
   },
 };
 
+// === Built-in Guards ===
+
+export const Guards = {
+  /** Only run step if last output contains the given substring */
+  outputContains: (substring: string): StepGuard => (ctx) =>
+    ctx.lastOutput.includes(substring),
+
+  /** Only run step if a variable is truthy */
+  variableSet: (key: string): StepGuard => (ctx) =>
+    Boolean(ctx.variables[key]),
+
+  /** Only run step if last output length exceeds threshold */
+  minOutputLength: (min: number): StepGuard => (ctx) =>
+    ctx.lastOutput.length >= min,
+};
+
 // === Helper to create chain ===
 
 export function createChain(provider: LLMProvider): PromptChain {
