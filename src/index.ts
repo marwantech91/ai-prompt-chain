@@ -196,4 +196,25 @@ export function createChain(provider: LLMProvider): PromptChain {
   return new PromptChain(provider);
 }
 
+/** Create a chain that branches based on classifier output */
+export function createBranchChain(
+  provider: LLMProvider,
+  classifier: ChainStep,
+  branches: Record<string, ChainStep[]>
+): PromptChain {
+  const chain = new PromptChain(provider);
+  chain.step(classifier.name, classifier.prompt, classifier.options);
+
+  for (const [label, steps] of Object.entries(branches)) {
+    for (const step of steps) {
+      chain.step(step.name, step.prompt, {
+        ...step.options,
+        guard: (ctx) => ctx.lastOutput.toLowerCase().includes(label.toLowerCase()),
+      });
+    }
+  }
+
+  return chain;
+}
+
 export default PromptChain;
